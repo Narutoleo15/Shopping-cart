@@ -10,8 +10,8 @@ let shopItemData = [
     },
     {
         id: "afafgawf",
-        name: "Black T-Shirt",
-        price: 25,
+        name: "Purple King-Pin Suit",
+        price: 200,
         desc: "Purple Bussiness (Event) Suit.",
         img: "img/purple-action.jpg",
     },
@@ -38,8 +38,8 @@ let shopItemData = [
     },
     {
         id: "afafagga",
-        name: "Black T-Shirt",
-        price: 25,
+        name: "Purple King-Pin Suit",
+        price: 200,
         desc: "Purple Bussiness (Event) Suit.",
         img: "img/purple-action.jpg",
     },
@@ -66,8 +66,8 @@ let shopItemData = [
     },
     {
         id: "gseffawf",
-        name: "Black T-Shirt",
-        price: 25,
+        name: "Purple King-Pin Suit",
+        price: 200,
         desc: "Purple Bussiness (Event) Suit.",
         img: "img/purple-action.jpg",
     },
