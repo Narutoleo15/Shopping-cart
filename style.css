@@ -7,6 +7,7 @@
 
 body {
 	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+	background-color: black;
 }
 /* !navbar */
 .navbar {
@@ -50,6 +51,9 @@ body {
 	display: flex;
 	flex-direction: column;
 }
+p {
+	margin-top: 10px;
+}
 
 .priceAndquantity {
 	display: flex;
@@ -64,6 +68,19 @@ body {
 	justify-content: center;
 	gap: 30px;
 }
+
+@media screen and (max-width: 768px) {
+	.shop {
+		grid-template-columns: repeat(2, 223px);
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.shop {
+		grid-template-columns: repeat(1, 223px);
+	}
+}
+
 image {
 	width: 100%;
 }
@@ -73,6 +90,7 @@ image {
 	background-color: #2d3142;
 	border-radius: 4px;
 	width: 4/100%;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 .price {
 	color: white;
@@ -88,13 +106,18 @@ image {
 	gap: 5px;
 	padding: 5px 7px;
 	border-radius: 4px;
+	box-shadow: 0px 0px 10px rgba(153, 149, 149, 0.5);
 }
 
 .bi-dash-lg {
+	font-size: 20px;
 }
 
 .quantity {
+	color: #2d3142;
+	font-weight: bold;
 }
 
 .bi-plus-lg {
+	font-size: 20px;
 }
