@@ -2,21 +2,21 @@ let shop = document.getElementById('shop');
 let shopItemData = [
     // in react when doing this method you get annoying key error is you dont specify a unique key
     {
-        id: "htffhtvh",
+        id: "hhfhtvh",
         name: "Camo Comfort Fit",
-        price: 100,
+        price: 80,
         desc: "Comfortable Button-up set.",
         img: "img/camo-fit.webp",
     },
     {
-        id: "afafgawf",
+        id: "afafdrwf",
         name: "Purple King-Pin Suit",
-        price: 200,
+        price: 65,
         desc: "Purple Bussiness (Event) Suit.",
         img: "img/purple-action.jpg",
     },
     {
-        id: "hdfswefa",
+        id: "hsswefa",
         name: "Breathable White Dress",
         price: 80,
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing.",
@@ -25,21 +25,21 @@ let shopItemData = [
     {
         id: "htffhtvh",
         name: "White T-Shirt",
-        price: 25,
+        price: 10,
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing.",
         img: "img/bini.jpg",
     },
     {
-        id: "htwdhtvh",
+        id: "htwfgtvh",
         name: "Camo Comfort Fit",
-        price: 100,
+        price: 65,
         desc: "Comfortable Button-up set.",
         img: "img/camo-fit.webp",
     },
     {
-        id: "afafagga",
+        id: "afafdgga",
         name: "Purple King-Pin Suit",
-        price: 200,
+        price: 80,
         desc: "Purple Bussiness (Event) Suit.",
         img: "img/purple-action.jpg",
     },
@@ -72,23 +72,27 @@ let shopItemData = [
         img: "img/purple-action.jpg",
     },
     {
-        id: "gesfgefea",
+        id: "gesfgshgea",
         name: "Breathable White Dress",
         price: 80,
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing.",
         img: "img/white-dress.webp",
     },
     {
-        id: "gesadwa",
+        id: "gesfsegadwa",
         name: "White T-Shirt Binnie Combo",
         price: 25,
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing.",
         img: "img/bini.jpg",
     },
-]
+] // end of shopItemData
 
+let basket = [{
+    id: "htffhtvh",
+    item: 1,
+}]; // end of basket
 
-let generateShop = () => {
+let generateCartItems = () => {
     // returns whats inside the template tags and replaces the placeholder with the data for each object
     return (shop.innerHTML = shopItemData.map((item) => {
         let { id, name, price, desc, img } = item;
@@ -102,15 +106,63 @@ let generateShop = () => {
         <div class="priceAndquantity">
         <div class="price">$${price}</div>
         <div class="buttons">
-        <i class="bi bi-dash-lg"></i>
+        <i onclick="decreaseQuantity(${id})" class="bi bi-dash-lg"></i>
         <div id = ${id} class="quantity">0</div>
-        <i class="bi bi-plus-lg"></i>
+        <i onclick="increaseQuantity(${id})" class="bi bi-plus-lg"></i>
         </div>
         </div>
         </div>
         </div>`
-        // gets rid of commas between divs
     }).join(''));
-}
-// callling the function
-generateShop();
+
+}   // end of generateShop
+// calling the function
+generateCartItems();
+
+let increment = (id) => {
+    let selectedItem = id;
+    let search = basket.find((x) => x.id === selectedItem.id);
+
+    if (search === undefined) {
+        basket.push({
+            id: selectedItem.id,
+            item: 1,
+        });
+    } else {
+        search.item += 1;
+    }
+
+    generateCartItems();
+    update(selectedItem.id);
+    localStorage.setItem("data", JSON.stringify(basket));
+};
+let decrement = (id) => {
+    let selectedItem = id;
+    let search = basket.find((x) => x.id === selectedItem.id);
+
+    if (search === undefined) return;
+    else if (search.item === 0) return;
+    else {
+        search.item -= 1;
+        localStorage.setItem("data", JSON.stringify(basket));
+    }
+    update(selectedItem.id);
+};
+
+let update = (id) => {
+    let search = basket.find((x) => x.id === id);
+    // console.log(search.item);
+    document.getElementById(id).innerHTML = search.item;
+    calculation();
+    TotalAmount();
+};
+
+let calculation = () => {
+    let total = 0;
+    basket.forEach((item) => {
+        total += item.item * shopItemData.find((x) => x.id === item.id).price;
+    });
+    document.getElementById("total").innerHTML = total;
+}   // end of calculation
+
+
