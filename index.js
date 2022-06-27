@@ -94,8 +94,8 @@ let basket = [{
 
 let generateCartItems = () => {
     // returns whats inside the template tags and replaces the placeholder with the data for each object
-    return (shop.innerHTML = shopItemData.map((item) => {
-        let { id, name, price, desc, img } = item;
+    return (shop.innerHTML = shopItemData.map((x) => {
+        let { id, name, price, desc, img } = x;
         // return the template
         return `
         <div id = product-${id} class="item">
@@ -119,7 +119,7 @@ let generateCartItems = () => {
 // calling the function
 generateCartItems();
 
-let increment = (id) => {
+let increaseQuantity = (id) => {
     let selectedItem = id;
     let search = basket.find((x) => x.id === selectedItem.id);
 
@@ -130,24 +130,27 @@ let increment = (id) => {
         });
     } else {
         search.item += 1;
+
     }
 
     generateCartItems();
     update(selectedItem.id);
     localStorage.setItem("data", JSON.stringify(basket));
 };
-let decrement = (id) => {
+let decreaseQuantity = (id) => {
     let selectedItem = id;
     let search = basket.find((x) => x.id === selectedItem.id);
 
-    if (search === undefined) return;
-    else if (search.item === 0) return;
-    else {
+
+    if (search === undefined) {
+        basket.push({
+            id: selectedItem.id,
+            item: 1,
+        });
+    } else {
         search.item -= 1;
-        localStorage.setItem("data", JSON.stringify(basket));
     }
-    update(selectedItem.id);
-};
+}
 
 let update = (id) => {
     let search = basket.find((x) => x.id === id);
@@ -159,8 +162,8 @@ let update = (id) => {
 
 let calculation = () => {
     let total = 0;
-    basket.forEach((item) => {
-        total += item.item * shopItemData.find((x) => x.id === item.id).price;
+    basket.map((x) => {
+        total += x.item * shopItemData.find((x) => x.id === item.id).price;
     });
     document.getElementById("total").innerHTML = total;
 }   // end of calculation
