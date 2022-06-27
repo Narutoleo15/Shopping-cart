@@ -121,3 +121,7 @@ image {
 .bi-plus-lg {
 	font-size: 20px;
 }
+
+i {
+	cursor: pointer;
+}

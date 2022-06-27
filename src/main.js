@@ -131,27 +131,23 @@ let increaseQuantity = (id) => {
 
     }
 
-    localStorage.setItem("data", JSON.stringify(basket));
-    generateCartItems();
     update(selectedItem.id);
+    localStorage.setItem("data", JSON.stringify(basket));
 };
 let decreaseQuantity = (id) => {
     let selectedItem = id;
     let search = basket.find((x) => x.id === selectedItem.id);
 
 
-    if (search === undefined) {
-        basket.push({
-            id: selectedItem.id,
-            item: 1,
-        });
-    } else {
+    if (search === undefined) return;
+    else if (search.item === 0) return;
+    else {
         search.item -= 1;
     }
 
-    localStorage.setItem("data", JSON.stringify(basket));
-    generateCartItems();
     update(selectedItem.id);
+    basket = basket.filter((x) => x.item !== 0);
+    localStorage.setItem("data", JSON.stringify(basket));
 }
 
 let update = (id) => {
