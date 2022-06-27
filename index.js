@@ -87,15 +87,13 @@ let shopItemData = [
     },
 ] // end of shopItemData
 
-let basket = [{
-    id: "htffhtvh",
-    item: 1,
-}]; // end of basket
+let basket = JSON.parse(localStorage.getItem("data")) || [];
 
 let generateCartItems = () => {
     // returns whats inside the template tags and replaces the placeholder with the data for each object
     return (shop.innerHTML = shopItemData.map((x) => {
         let { id, name, price, desc, img } = x;
+        let search = basket.find((x) => x.id === id) || [];
         // return the template
         return `
         <div id = product-${id} class="item">
@@ -103,11 +101,11 @@ let generateCartItems = () => {
         <div class="details">
         <h3>${name}</h3>
         <p>${desc}</p>
-        <div class="priceAndquantity">
+        <div class="price-quantity">
         <div class="price">$${price}</div>
         <div class="buttons">
         <i onclick="decreaseQuantity(${id})" class="bi bi-dash-lg"></i>
-        <div id = ${id} class="quantity">0</div>
+        <div id = ${id} class="quantity">${search.item == undefined ? 0 : search.item}</div>
         <i onclick="increaseQuantity(${id})" class="bi bi-plus-lg"></i>
         </div>
         </div>
@@ -115,7 +113,7 @@ let generateCartItems = () => {
         </div>`
     }).join(''));
 
-}   // end of generateShop
+};   // end of generateShop
 // calling the function
 generateCartItems();
 
@@ -133,9 +131,9 @@ let increaseQuantity = (id) => {
 
     }
 
+    localStorage.setItem("data", JSON.stringify(basket));
     generateCartItems();
     update(selectedItem.id);
-    localStorage.setItem("data", JSON.stringify(basket));
 };
 let decreaseQuantity = (id) => {
     let selectedItem = id;
@@ -150,22 +148,21 @@ let decreaseQuantity = (id) => {
     } else {
         search.item -= 1;
     }
+
+    localStorage.setItem("data", JSON.stringify(basket));
+    generateCartItems();
+    update(selectedItem.id);
 }
 
 let update = (id) => {
     let search = basket.find((x) => x.id === id);
-    // console.log(search.item);
     document.getElementById(id).innerHTML = search.item;
     calculation();
-    TotalAmount();
 };
 
 let calculation = () => {
-    let total = 0;
-    basket.map((x) => {
-        total += x.item * shopItemData.find((x) => x.id === item.id).price;
-    });
-    document.getElementById("total").innerHTML = total;
-}   // end of calculation
+    let cartIcon = document.getElementById("cartAmount");
+    cartIcon.innerHTML = basket.map((x) => x.item).reduce((x, y) => x + y, 0);
+};
 
-
+calculation();
