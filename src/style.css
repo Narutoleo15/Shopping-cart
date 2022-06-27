@@ -9,6 +9,10 @@ body {
 	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 	background-color: rgb(128, 107, 107);
 }
+a {
+	text-decoration: none;
+	color: #fff;
+}
 /* !navbar */
 .navbar {
 	background-color: #2d3142;
