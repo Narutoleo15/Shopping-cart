@@ -10,7 +10,7 @@ let generateCartItems = () => {
         // return the template
         return `
         <div id = product-${id} class="item">
-        <img width="220" src="${img}" alt="Camo fit">
+        <img width="220" height="370" src="${img}" alt="Camo fit">
         <div class="details">
         <h3>${name}</h3>
         <p>${desc}</p>
